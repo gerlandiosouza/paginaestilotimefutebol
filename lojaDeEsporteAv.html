@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOja de Esportes Avenida</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Trebuchet MS', sans-serif;
+        }
+
+        main {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 40vh;
+            width: 1000px;
+            background-color: #f0f0f0;
+            margin-top: 200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #000000;
+            margin-bottom: 25px;
+        }
+
+        form {
+            font-size: larger;
+        }
+        input {
+            margin: 10px;
+            font-size: larger;
+            margin-top: 25px;
+        }
+       
+
+        .vasco {
+            background-color: #363636;
+            color: #ffffff;
+        }
+        .flamengo {
+            background-color: #ff0000;
+            color: #000000;
+        }
+
+        .brasil {
+            background-color: #ffcc29;
+            color: #000000;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div>
+            <h1>Loja de Esportes Avenida</h1>
+            <h2>Produtos Esportivos em Geral</h2>
+        </div>
+        <div>
+            <form>
+                <h3>Selecione um time que torce:</h3>
+                <input type="radio" name="clube" value="Brasil" id="brasil" checked > Brasil <br>
+                <input type="radio" name="clube" value="Flamengo" id="flamengo"> Flamengo <br>
+                <input type="radio" name="clube" value="Vasco" id="vasco"> Vasco <br>
+                
+            </form>
+        </div>
+        <div>
+            <img src="#" width="200px" alt="bandeira do clube" id="imageFlag">
+        </div>
+    </main>
+    <script>
+        //relacionar os itens html
+        const corpo = document.querySelector('main');
+        const frm = document.querySelector('form');
+        const imgFlag = document.querySelector('#imageFlag');
+        const radios = document.querySelectorAll('input[type="radio"]');
+
+      
+
+
+        const verificaClube = () => {
+             //variável local que armazena o clube
+             clube = '';
+
+            
+
+            if (frm.brasil.checked) {  //se o botão brasil for clicado
+                clube = 'brasil';
+                imgFlag.src = 'brasil.jpeg';
+                corpo.removeAttribute('class', 'flamengo', 'vasco');
+                corpo.classList.add('brasil');
+               
+
+            }
+            else if (frm.flamengo.checked) {
+                clube = 'flamengo';
+                imgFlag.src = 'flamengo.jpg';
+                corpo.removeAttribute('class', 'brasil', 'vasco');
+                corpo.classList.add('flamengo');
+            }
+            else if (frm.vasco.checked) {
+                clube = 'vasco';
+                imgFlag.src = 'vasco.jpg';
+                corpo.removeAttribute('class', 'brasil', 'flamengo');
+                corpo.classilist.add('vasco')
+                
+            }
+
+            localStorage.setItem('clube', clube);
+
+        }
+
+        //evento ouvinte
+
+        frm.addEventListener('change', verificaClube);
+
+
+        //função para verificar o clube e carregar a imagem do clube
+
+        const carregaClube = () => {
+            const clube = localStorage.getItem('clube');
+         
+                if (clube === 'brasil') {
+                    frm.brasil.checked = true;
+                 
+                }
+                else if (clube === 'flamengo') {
+                    frm.flamengo.checked = true;
+                  
+                }
+                else if (clube === 'vasco') {
+                    frm.vasco.checked = true;
+            
+                }
+
+                verificaClube();
+            }
+
+            window.addEventListener('load', carregaClube);
+        
+
+
+
+    </script>
+
+</body>
+
+</html>
